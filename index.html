@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior:smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FF6B35">
+    <meta name="description" content="Infografía interactiva sobre balonmano para niños de 8 a 12 años">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>¡Aprende Balonmano!</title>
+    <link rel="manifest" id="manifest-link">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ====== CSS VARIABLES ====== */
+        :root {
+            --orange: #FF6B35;
+            --yellow: #FFD60A;
+            --blue: #1B74E4;
+            --green: #2ECC71;
+            --red: #E74C3C;
+            --bg: #FFF9F0;
+            --text: #2D2D2D;
+            --shadow: 0 4px 14px rgba(0,0,0,0.10);
+            --shadow-hover: 0 10px 28px rgba(0,0,0,0.18);
+        }
+
+        /* ====== RESET & BASE ====== */
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+        h1,h2,h3,h4 {
+            font-family: 'Baloo 2', cursive;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ====== KEYFRAMES ====== */
+        @keyframes bounce {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
+        }
+
+        @keyframes wiggle {
+            0%,82%,100% { transform: rotate(0deg); }
+            86% { transform: rotate(-10deg); }
+            90% { transform: rotate(10deg); }
+            93% { transform: rotate(-6deg); }
+            96% { transform: rotate(6deg); }
+        }
+
+        @keyframes morph {
+            0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            25%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            50%  { border-radius: 50% 60% 30% 60% / 40% 70% 50% 60%; }
+            75%  { border-radius: 40% 30% 60% 50% / 60% 40% 60% 30%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity:0; }
+            to   { transform: translateY(0); opacity:1; }
+        }
+
+        /* ====== MASCOT ====== */
+        .mascot { display: inline-block; font-size: 80px; }
+        .mascot-bounce { animation: bounce 1.4s ease-in-out infinite; }
+        .mascot-wiggle { animation: wiggle 3s ease-in-out infinite; }
+
+        /* ====== HERO ====== */
+        .hero {
+            background: var(--orange);
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px 36px;
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 7vw, 3.6rem);
+            font-weight: 800;
+            margin-top: 8px;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--text);
+            padding: 6px 20px;
+            border-radius: 22px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 14px;
+        }
+
+        /* ====== BUBBLE GUIDE ====== */
+        .bubble-guide {
+            padding: 36px 20px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .bubble-guide .mascot { font-size: 58px; flex-shrink: 0; }
+        .speech-bubble {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px 22px;
+            box-shadow: var(--shadow);
+            position: relative;
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            left: -14px;
+            top: 22px;
+            border: 7px solid transparent;
+            border-right-color: #fff;
+        }
+
+        /* ====== IDEA CENTRAL — LIQUID MORPH ====== */
+        .idea-central { padding: 36px 20px; text-align: center; }
+
+        .liquid-card {
+            background: var(--red);
+            color: #fff;
+            padding: 50px 30px;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: morph 8s ease-in-out infinite;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .liquid-card:hover {
+            transform: translateY(-8px) scale(1.06);
+            box-shadow: 0 14px 36px rgba(231,76,60,0.40);
+        }
+        .gol-text {
+            font-family: 'Baloo 2', cursive;
+            font-size: clamp(4rem, 16vw, 7.5rem);
+            font-weight: 800;
+            line-height: 1;
+        }
+        .gol-sub { font-size: 1.15rem; margin-top: 6px; font-weight: 700; }
+
+        /* ====== DATOS CLAVE — DOUBLE-SIDED CARDS ====== */
+        .datos-clave { padding: 36px 20px; }
+        .datos-clave h2 { text-align: center; font-size: 2rem; margin-bottom: 28px; color: var(--orange); }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .flip-card {
+            perspective: 1000px;
+            height: 210px;
+            cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.65s ease;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner,
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 16px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.3s ease;
+        }
+        .flip-card:hover .flip-card-front,
+        .flip-card:hover .flip-card-back {
+            box-shadow: var(--shadow-hover);
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            background: #fff;
+            color: var(--text);
+        }
+        .big-number {
+            font-family: 'Baloo 2', cursive;
+            font-size: 3.4rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .card-label { font-size: 0.95rem; font-weight: 700; margin-top: 6px; }
+        .flip-hint { font-size: 0.72rem; opacity: 0.6; margin-top: 10px; }
+
+        .card-orange .flip-card-front { background: var(--orange); color: #fff; }
+        .card-blue   .flip-card-front { background: var(--blue);   color: #fff; }
+        .card-green  .flip-card-front { background: var(--green);  color: #fff; }
+        .card-yellow .flip-card-front { background: var(--yellow); color: var(--text); }
+
+        .card-orange .flip-card-back { border-top: 5px solid var(--orange); }
+        .card-blue   .flip-card-back { border-top: 5px solid var(--blue);   }
+        .card-green  .flip-card-back { border-top: 5px solid var(--green);  }
+        .card-yellow .flip-card-back { border-top: 5px solid var(--yellow); }
+
+        .flip-card-back h3 { font-size: 1.05rem; margin-bottom: 6px; }
+        .flip-card-back p { font-size: 0.88rem; line-height: 1.4; }
+
+        /* ====== PASOS — ROTATING CUBE ====== */
+        .pasos { padding: 36px 20px; }
+        .pasos h2 { text-align: center; font-size: 2rem; margin-bottom: 6px; color: var(--blue); }
+        .pasos-sub { text-align: center; font-size: 0.92rem; color: #888; margin-bottom: 28px; }
+
+        .cubes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .cube-step {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .cube-step-label {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1rem;
+            color: var(--blue);
+            font-weight: 800;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .cube-wrapper {
+            --cube-w: 280px;
+            --cube-h: 140px;
+            --tz: calc(var(--cube-w) / 2);
+            perspective: 800px;
+            width: var(--cube-w);
+            height: var(--cube-h);
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(.4,.2,.2,1);
+        }
+
+        .cube-face {
+            position: absolute;
+            width: var(--cube-w);
+            height: var(--cube-h);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .cube-front  { background: var(--blue);   color: #fff; transform: rotateY(0deg)   translateZ(var(--tz)); }
+        .cube-right  { background: var(--yellow);  color: var(--text); transform: rotateY(90deg)  translateZ(var(--tz)); }
+        .cube-back   { background: #fff;           color: var(--text); border: 3px solid var(--blue); transform: rotateY(180deg) translateZ(var(--tz)); }
+        .cube-left   { background: var(--green);   color: #fff; transform: rotateY(270deg) translateZ(var(--tz)); }
+
+        .cube[data-rot="0"] { transform: rotateY(0deg); }
+        .cube[data-rot="1"] { transform: rotateY(-90deg); }
+        .cube[data-rot="2"] { transform: rotateY(-180deg); }
+        .cube[data-rot="3"] { transform: rotateY(-270deg); }
+
+        .step-icon { font-size: 2rem; margin-bottom: 2px; }
+        .step-title { font-family: 'Baloo 2', cursive; font-size: 1.25rem; font-weight: 800; }
+        .step-detail { font-size: 0.88rem; line-height: 1.35; font-weight: 700; }
+
+        /* ====== EL CAMPO ====== */
+        .campo { padding: 36px 20px; text-align: center; }
+        .campo h2 { font-size: 2rem; color: var(--green); margin-bottom: 18px; }
+        .campo-svg { max-width: 680px; margin: 0 auto; }
+        .campo-svg svg { width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow); }
+        .campo-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 16px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .campo-legend span { display: flex; align-items: center; gap: 5px; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+        /* ====== EL PORTERO ====== */
+        .portero { padding: 36px 20px; }
+        .portero-card {
+            background: var(--red);
+            color: #fff;
+            border-radius: 22px;
+            padding: 38px 28px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        .portero-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(231,76,60,0.35);
+        }
+        .portero-card h2 { font-size: 2rem; margin-bottom: 8px; }
+        .portero-icon { font-size: 3.5rem; margin-bottom: 6px; }
+        .portero-card p { font-size: 1.02rem; max-width: 460px; margin: 0 auto; line-height: 1.5; }
+
+        /* ====== QUIZ ====== */
+        .quiz-section { padding: 36px 20px; }
+        .quiz-section h2 { text-align: center; font-size: 2rem; color: var(--orange); margin-bottom: 8px; }
+        .quiz-mascot { text-align: center; font-size: 48px; margin-bottom: 14px; }
+
+        .quiz-container {
+            max-width: 580px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 22px;
+            padding: 28px 22px;
+            box-shadow: var(--shadow);
+        }
+        .quiz-question {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.25rem;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+
+        .quiz-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 18px;
+            border: 3px solid #e0e0e0;
+            border-radius: 14px;
+            background: #fff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            min-height: 48px;
+            transition: border-color 0.25s, background 0.25s, color 0.25s, transform 0.2s;
+            text-align: left;
+        }
+        .quiz-btn:hover:not(:disabled) {
+            border-color: var(--blue);
+            background: #f0f7ff;
+            transform: translateX(6px);
+        }
+        .quiz-btn.correct {
+            border-color: var(--green);
+            background: #e8faf0;
+            color: #1a7a43;
+        }
+        .quiz-btn.wrong {
+            border-color: var(--red);
+            background: #fde8e8;
+            color: var(--red);
+        }
+        .quiz-btn:disabled { cursor: not-allowed; }
+
+        .quiz-feedback {
+            margin-top: 14px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-height: 28px;
+        }
+        .quiz-progress {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.88rem;
+            color: #999;
+        }
+        .quiz-next {
+            display: block;
+            margin: 14px auto 0;
+            padding: 13px 32px;
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            min-height: 48px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .quiz-next:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(255,107,53,0.4);
+        }
+        .quiz-next:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .quiz-score {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .quiz-score .score-num {
+            font-family: 'Baloo 2', cursive;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--orange);
+        }
+
+        /* ====== FOOTER ====== */
+        footer {
+            background: var(--text);
+            color: #ccc;
+            text-align: center;
+            padding: 36px 20px 48px;
+        }
+        footer p { margin: 4px 0; font-size: 0.92rem; }
+        footer strong { color: var(--yellow); }
+        .footer-phrase {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.3rem;
+            color: var(--orange);
+            margin-top: 16px;
+        }
+        .footer-separator {
+            width: 60px;
+            height: 3px;
+            background: var(--orange);
+            border: none;
+            border-radius: 2px;
+            margin: 14px auto;
+        }
+
+        /* ====== PWA BANNER ====== */
+        .pwa-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--text);
+            color: #fff;
+            padding: 14px 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            z-index: 1000;
+            transform: translateY(100px);
+            transition: transform 0.5s ease;
+        }
+        .pwa-banner.show {
+            display: flex;
+            transform: translateY(0);
+            animation: slideUp 0.5s ease forwards;
+        }
+        .pwa-banner p { font-size: 0.88rem; }
+        .pwa-install-btn {
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            min-height: 44px;
+            font-size: 0.92rem;
+        }
+        .pwa-close-btn {
+            background: none;
+            border: 2px solid #aaa;
+            color: #aaa;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            min-height: 44px;
+            font-size: 0.88rem;
+        }
+
+        /* ====== REDUCED MOTION ====== */
+        @media (prefers-reduced-motion: reduce) {
+            .mascot-bounce, .mascot-wiggle { animation: none; }
+            .liquid-card { animation: none; border-radius: 24px; }
+            .flip-card-inner { transition-duration: 0.01s; }
+            .cube { transition-duration: 0.01s; }
+            .quiz-btn { transition-duration: 0.01s; }
+            html { scroll-behavior: auto; }
+            .pwa-banner { animation: none; }
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 520px) {
+            .cards-grid { grid-template-columns: 1fr; max-width: 340px; }
+            .bubble-guide { flex-direction: column; text-align: center; }
+            .speech-bubble::before { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .liquid-card .gol-text { font-size: 4rem; }
+            .cube-step { flex-direction: column; text-align: center; }
+            .cube-step-label { min-width: auto; text-align: center; }
+            .cube-wrapper {
+                --cube-w: min(260px, 78vw);
+                --cube-h: 130px;
+            }
+        }
+
+        @media (min-width: 521px) and (max-width: 700px) {
+            .cube-wrapper {
+                --cube-w: 260px;
+                --cube-h: 135px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== 1. HERO ====== -->
+    <header class="hero" role="banner">
+        <div class="mascot mascot-bounce" role="img" aria-label="León mascota de balonmano">🦁</div>
+        <h1>¡Aprende Balonmano!</h1>
+        <span class="badge">Infografía interactiva para niños</span>
+    </header>
+
+    <main>
+        <!-- ====== 2. BURBUJA GUÍA ====== -->
+        <section class="bubble-guide" aria-label="Presentación de la mascota guía">
+            <div class="mascot mascot-wiggle" role="img" aria-label="León mascota guía">🦁</div>
+            <div class="speech-bubble">
+                ¡Hola! Soy <strong>Leo</strong> 🐾 ¿Sabes que en balonmano el objetivo es marcar <strong>GOLES</strong>? ¡Te enseño todo! 👇
+            </div>
+        </section>
+
+        <!-- ====== 3. IDEA CENTRAL — LIQUID MORPH ====== -->
+        <section class="idea-central" aria-label="Idea central del balonmano">
+            <h2 style="font-size:1.6rem; color:var(--red); margin-bottom:18px;">¿Cuál es el objetivo?</h2>
+            <div class="liquid-card" role="img" aria-label="El objetivo del balonmano es marcar gol">
+                <div class="gol-text">¡GOL!</div>
+                <div class="gol-sub">Marcar en la portería rival ⚽</div>
+            </div>
+        </section>
+
+        <!-- ====== 4. DATOS CLAVE — DOUBLE-SIDED CARDS ====== -->
+        <section class="datos-clave" aria-label="Datos clave del balonmano">
+            <h2>📊 Datos clave</h2>
+            <div class="cards-grid">
+
+                <div class="flip-card card-orange" onclick="this.classList.toggle('flipped')" aria-label="7 jugadores por equipo. Toca para más información." role="button" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div style="font-size:2.2rem;">🏃</div>
+                            <div class="big-number">7</div>
+                            <div class="card-label">jugadores por equipo</div>
+                            <div class="flip-hint">Toca para más ↻</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>🧑‍🤝‍🧑 7 jugadores</h3>
+                            <p>6 de campo + 1 portero. ¡Todos se mueven y pasan el balón!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card card-blue" onclick="this.classList.toggle('flipped')" aria-label="3 pasos máximo con el balón. Toca para más información." role="button" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div style="font-size:2.2rem;">👟</div>
+                            <div class="big-number">3</div>
+                            <div class="card-label">pasos máximo</div>
+                            <div class="flip-hint">Toca para más ↻</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>👟 3 pasos</h3>
+                            <p>Solo puedes dar 3 pasos con el balón. Luego ¡pasa o lanza!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card card-green" onclick="this.classList.toggle('flipped')" aria-label="30 minutos por tiempo. Toca para más información." role="button" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div style="font-size:2.2rem;">⏱️</div>
+                            <div class="big-number">30'</div>
+                            <div class="card-label">minutos por tiempo</div>
+                            <div class="flip-hint">Toca para más ↻</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>⏱️ 30 minutos</h3>
+                            <p>El partido tiene 2 tiempos de 30 min con 10 min de descanso.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card card-yellow" onclick="this.classList.toggle('flipped')" aria-label="Zona de 6 metros del portero. Toca para más información." role="button" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div style="font-size:2.2rem;">🛡️</div>
+                            <div class="big-number">6m</div>
+                            <div class="card-label">zona del portero</div>
+                            <div class="flip-hint">Toca para más ↻</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>🛡️ Zona de 6m</h3>
+                            <p>Solo el portero puede estar dentro del área de 6 metros.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====== 5. PASOS — ROTATING CUBE ====== -->
+        <section class="pasos" aria-label="Pasos para anotar un gol">
+            <h2>🎯 Pasos para anotar</h2>
+            <p class="pasos-sub">Toca cada cubo para descubrir más</p>
+            <div class="cubes-container">
+
+                <div class="cube-step">
+                    <div class="cube-step-label">Paso 1</div>
+                    <div class="cube-wrapper" onclick="rotateCube(this)" aria-label="Paso 1: Agarra el balón. Toca para rotar." role="button" tabindex="0">
+                        <div class="cube" data-rot="0">
+                            <div class="cube-face cube-front">
+                                <div class="step-icon">🤲</div>
+                                <div class="step-title">¡Agarra el balón!</div>
+                            </div>
+                            <div class="cube-face cube-right">
+                                <div class="step-detail">Sujétalo con las<br>yemas de los dedos</div>
+                            </div>
+                            <div class="cube-face cube-back">
+                                <div class="step-detail">El balón es de cuero<br>o material sintético</div>
+                            </div>
+                            <div class="cube-face cube-left">
+                                <div class="step-detail">¡Sin tocarlo<br>con los pies! 👟❌</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cube-step">
+                    <div class="cube-step-label">Paso 2</div>
+                    <div class="cube-wrapper" onclick="rotateCube(this)" aria-label="Paso 2: Avanza. Toca para rotar." role="button" tabindex="0">
+                        <div class="cube" data-rot="0">
+                            <div class="cube-face cube-front">
+                                <div class="step-icon">🏃</div>
+                                <div class="step-title">¡Avanza!</div>
+                            </div>
+                            <div class="cube-face cube-right">
+                                <div class="step-detail">Máximo 3 pasos<br>con el balón</div>
+                            </div>
+                            <div class="cube-face cube-back">
+                                <div class="step-detail">Puedes botar<br>y volver a cogerlo 🏀</div>
+                            </div>
+                            <div class="cube-face cube-left">
+                                <div class="step-detail">Más de 3 pasos<br>= infracción ⚠️</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cube-step">
+                    <div class="cube-step-label">Paso 3</div>
+                    <div class="cube-wrapper" onclick="rotateCube(this)" aria-label="Paso 3: Lanza. Toca para rotar." role="button" tabindex="0">
+                        <div class="cube" data-rot="0">
+                            <div class="cube-face cube-front">
+                                <div class="step-icon">🎯</div>
+                                <div class="step-title">¡Lanza!</div>
+                            </div>
+                            <div class="cube-face cube-right">
+                                <div class="step-detail">Apunta a la portería<br>contraria 🥅</div>
+                            </div>
+                            <div class="cube-face cube-back">
+                                <div class="step-detail">El portero intentará<br>parar tu tiro 🧤</div>
+                            </div>
+                            <div class="cube-face cube-left">
+                                <div class="step-detail">¡Intenta marcar<br>GOL! ⚽🎉</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====== 6. EL CAMPO ====== -->
+        <section class="campo" aria-label="Campo de balonmano">
+            <h2>🏟️ El campo</h2>
+            <div class="campo-svg">
+                <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Campo de balonmano de 40 por 20 metros con zonas marcadas">
+                    <!-- Fondo -->
+                    <rect x="0" y="0" width="400" height="200" fill="#2ECC71" rx="6"/>
+                    <!-- Borde del campo -->
+                    <rect x="3" y="3" width="394" height="194" fill="none" stroke="#fff" stroke-width="2.5" rx="3"/>
+                    <!-- Línea central -->
+                    <line x1="200" y1="3" x2="200" y2="197" stroke="#fff" stroke-width="2"/>
+                    <!-- Círculo central -->
+                    <circle cx="200" cy="100" r="16" fill="none" stroke="#fff" stroke-width="2"/>
+                    <circle cx="200" cy="100" r="3" fill="#fff"/>
+
+                    <!-- Zona de 6m izquierda -->
+                    <path d="M 3,40 A 60,60 0 0,1 3,160 Z" fill="rgba(255,255,255,0.13)" stroke="#fff" stroke-width="2"/>
+                    <!-- Zona de 6m derecha -->
+                    <path d="M 397,40 A 60,60 0 0,0 397,160 Z" fill="rgba(255,255,255,0.13)" stroke="#fff" stroke-width="2"/>
+
+                    <!-- Línea de 9m izquierda (discontinua) -->
+                    <path d="M 3,10 A 90,90 0 0,1 3,190" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="6,4"/>
+                    <!-- Línea de 9m derecha (discontinua) -->
+                    <path d="M 397,10 A 90,90 0 0,0 397,190" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+                    <!-- Marca de 7m (penalti) -->
+                    <line x1="73" y1="95" x2="73" y2="105" stroke="#fff" stroke-width="2.5"/>
+                    <line x1="327" y1="95" x2="327" y2="105" stroke="#fff" stroke-width="2.5"/>
+
+                    <!-- Porterías -->
+                    <rect x="-4" y="85" width="8" height="30" fill="#E74C3C" stroke="#fff" stroke-width="1.5" rx="2"/>
+                    <rect x="396" y="85" width="8" height="30" fill="#E74C3C" stroke="#fff" stroke-width="1.5" rx="2"/>
+
+                    <!-- Porteros -->
+                    <text x="22" y="106" font-size="14" text-anchor="middle">🧤</text>
+                    <text x="378" y="106" font-size="14" text-anchor="middle">🧤</text>
+
+                    <!-- Jugadores de campo -->
+                    <text x="100" y="68" font-size="13" text-anchor="middle">🏃</text>
+                    <text x="100" y="142" font-size="13" text-anchor="middle">🏃</text>
+                    <text x="130" y="106" font-size="13" text-anchor="middle">🤾</text>
+                    <text x="270" y="80" font-size="13" text-anchor="middle">🏃</text>
+                    <text x="270" y="132" font-size="13" text-anchor="middle">🏃</text>
+
+                    <!-- Balón -->
+                    <text x="160" y="106" font-size="11" text-anchor="middle">🟡</text>
+
+                    <!-- Etiquetas de medidas -->
+                    <text x="38" y="105" fill="#fff" font-size="10" font-family="Nunito, sans-serif" font-weight="700" text-anchor="middle">6m</text>
+                    <text x="56" y="105" fill="rgba(255,255,255,0.7)" font-size="8" font-family="Nunito, sans-serif" text-anchor="middle">9m</text>
+                    <text x="73" y="120" fill="#fff" font-size="8" font-family="Nunito, sans-serif" text-anchor="middle">7m</text>
+                </svg>
+            </div>
+            <div class="campo-legend">
+                <span><span class="legend-dot" style="background:rgba(255,255,255,0.4)"></span> Zona 6m</span>
+                <span><span class="legend-dot" style="background:transparent;border:1.5px dashed #fff;"></span> Línea 9m</span>
+                <span><span class="legend-dot" style="background:var(--red);"></span> Portería</span>
+                <span>📏 40m × 20m</span>
+            </div>
+        </section>
+
+        <!-- ====== 7. EL PORTERO ====== -->
+        <section class="portero" aria-label="El portero de balonmano">
+            <div class="portero-card">
+                <div class="portero-icon">🧤</div>
+                <h2>El portero</h2>
+                <p>Es el jugador más especial: defiende la portería con reflejos y agilidad. ¡Puede tocar el balón con cualquier parte del cuerpo dentro del área! Sus paradas son clave para el equipo.</p>
+            </div>
+        </section>
+
+        <!-- ====== 8. QUIZ INTERACTIVO ====== -->
+        <section class="quiz-section" aria-label="Quiz interactivo sobre balonmano">
+            <h2>🧠 ¡Demuestra lo que sabes!</h2>
+            <div class="quiz-mascot mascot-wiggle" role="img" aria-label="Leo te reta">🦁</div>
+
+            <div class="quiz-container">
+                <div class="quiz-question" id="quiz-question"></div>
+                <div class="quiz-options" id="quiz-options" role="group" aria-label="Opciones de respuesta"></div>
+                <div class="quiz-feedback" id="quiz-feedback" aria-live="polite"></div>
+                <div class="quiz-progress" id="quiz-progress"></div>
+                <button class="quiz-next" id="quiz-next" disabled aria-label="Siguiente pregunta">Siguiente ➜</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- ====== 9. FOOTER ====== -->
+    <footer role="contentinfo">
+        <!-- ✏️ REEMPLAZA: escribe tu nombre y apellido aquí -->
+        <p>Creado por: <strong>Cesar Nuñez Carranza</strong></p>
+        <hr class="footer-separator">
+        <p><strong>UTP</strong> — Universidad Tecnológica del Perú</p>
+        <p>Asignatura: <strong>INFOGRAFÍA</strong></p>
+        <p>Año: <strong>2026</strong></p>
+        <p class="footer-phrase">🤾 ¡El balonmano te espera, atrapa el balón y juega! 🦁</p>
+    </footer>
+
+    <!-- ====== PWA INSTALL BANNER ====== -->
+    <div class="pwa-banner" id="pwa-banner" role="dialog" aria-label="Instalar aplicación">
+        <p>📲 ¡Instala esta infografía para usarla sin internet!</p>
+        <button class="pwa-install-btn" id="pwa-install-btn" aria-label="Instalar aplicación">Instalar</button>
+        <button class="pwa-close-btn" id="pwa-close-btn" aria-label="Cerrar aviso">✕</button>
+    </div>
+
+    <script>
+        /* ============================================
+           JAVASCRIPT — INTERACTIVIDAD Y PWA
+           ============================================ */
+
+        // ====== ROTATING CUBE ======
+        function rotateCube(wrapper) {
+            const cube = wrapper.querySelector('.cube');
+            let rot = parseInt(cube.getAttribute('data-rot')) || 0;
+            rot = (rot + 1) % 4;
+            cube.setAttribute('data-rot', rot);
+        }
+
+        // Teclado: Enter/Space para flip cards y cubes
+        document.querySelectorAll('.flip-card, .cube-wrapper').forEach(function(el) {
+            el.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    el.click();
+                }
+            });
+        });
+
+        // ====== QUIZ INTERACTIVO ======
+        var quizData = [
+            {
+                question: "¿Cuántos jugadores tiene cada equipo?",
+                options: ["5 jugadores", "6 jugadores", "7 jugadores", "11 jugadores"],
+                correct: 2
+            },
+            {
+                question: "¿Cuántos pasos puedes dar con el balón?",
+                options: ["2 pasos", "3 pasos", "5 pasos", "Sin límite"],
+                correct: 1
+            },
+            {
+                question: "¿Cuánto dura cada tiempo del partido?",
+                options: ["15 minutos", "20 minutos", "30 minutos", "45 minutos"],
+                correct: 2
+            },
+            {
+                question: "¿Qué significa la zona de 6 metros?",
+                options: [
+                    "Todos pueden entrar",
+                    "Solo el portero puede estar dentro",
+                    "Solo el capitán puede entrar",
+                    "Es la zona de saque"
+                ],
+                correct: 1
+            }
+        ];
+
+        var currentQuestion = 0;
+        var score = 0;
+        var answered = false;
+
+        function loadQuestion() {
+            answered = false;
+            var q = quizData[currentQuestion];
+            document.getElementById('quiz-question').textContent = q.question;
+            document.getElementById('quiz-feedback').textContent = '';
+            document.getElementById('quiz-next').disabled = true;
+            document.getElementById('quiz-progress').textContent =
+                'Pregunta ' + (currentQuestion + 1) + ' de ' + quizData.length;
+
+            var optionsDiv = document.getElementById('quiz-options');
+            optionsDiv.innerHTML = '';
+
+            q.options.forEach(function(opt, i) {
+                var btn = document.createElement('button');
+                btn.className = 'quiz-btn';
+                btn.textContent = opt;
+                btn.setAttribute('aria-label', 'Opción: ' + opt);
+                btn.addEventListener('click', function() {
+                    checkAnswer(i, btn);
+                });
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(index, btn) {
+            if (answered) return;
+            answered = true;
+
+            var q = quizData[currentQuestion];
+            var allBtns = document.querySelectorAll('.quiz-btn');
+
+            allBtns.forEach(function(b) { b.disabled = true; });
+
+            if (index === q.correct) {
+                btn.classList.add('correct');
+                score++;
+                document.getElementById('quiz-feedback').innerHTML =
+                    '✅ ¡Correcto! Eres un campeón 🏆';
+            } else {
+                btn.classList.add('wrong');
+                allBtns[q.correct].classList.add('correct');
+                document.getElementById('quiz-feedback').innerHTML =
+                    '❌ ¡Casi! La respuesta correcta era: <strong>' + q.options[q.correct] + '</strong>';
+            }
+
+            document.getElementById('quiz-next').disabled = false;
+        }
+
+        document.getElementById('quiz-next').addEventListener('click', function() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        function showResults() {
+            var container = document.querySelector('.quiz-container');
+            container.innerHTML =
+                '<div class="quiz-score">' +
+                    '<div style="font-size:3rem;">🦁</div>' +
+                    '<div class="score-num">' + score + ' / ' + quizData.length + '</div>' +
+                    '<p style="font-family:Baloo 2,cursive;font-size:1.3rem;margin-top:8px;">' +
+                        (score === quizData.length
+                            ? '¡Perfecto! ¡Eres un crack del balonmano! 🏆'
+                            : score >= 3
+                                ? '¡Muy bien! ¡Casi perfecto! 🤾'
+                                : '¡Buen intento! ¡Sigue aprendiendo! 📖') +
+                    '</p>' +
+                '</div>' +
+                '<button class="quiz-next" onclick="resetQuiz()" style="margin-top:16px;">Jugar de nuevo 🔄</button>';
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            // Reconstruir el contenedor del quiz
+            var container = document.querySelector('.quiz-container');
+            container.innerHTML =
+                '<div class="quiz-question" id="quiz-question"></div>' +
+                '<div class="quiz-options" id="quiz-options" role="group" aria-label="Opciones de respuesta"></div>' +
+                '<div class="quiz-feedback" id="quiz-feedback" aria-live="polite"></div>' +
+                '<div class="quiz-progress" id="quiz-progress"></div>' +
+                '<button class="quiz-next" id="quiz-next" disabled aria-label="Siguiente pregunta">Siguiente ➜</button>';
+
+            document.getElementById('quiz-next').addEventListener('click', function() {
+                currentQuestion++;
+                if (currentQuestion < quizData.length) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            });
+
+            loadQuestion();
+        }
+
+        // Iniciar quiz
+        loadQuestion();
+
+        // ====== PWA — MANIFEST & SERVICE WORKER ======
+
+        // Web App Manifest embebido como Data URI
+        var manifestData = {
+            name: "¡Aprende Balonmano!",
+            short_name: "Balonmano",
+            description: "Infografía interactiva sobre balonmano para niños",
+            start_url: "./",
+            display: "standalone",
+            background_color: "#FFF9F0",
+            theme_color: "#FF6B35",
+            orientation: "portrait",
+            icons: [
+                {
+                    src: "data:image/svg+xml," + encodeURIComponent(
+                        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">' +
+                        '<rect width="192" height="192" rx="32" fill="#FF6B35"/>' +
+                        '<text x="96" y="120" text-anchor="middle" font-size="90">🤾</text>' +
+                        '</svg>'
+                    ),
+                    sizes: "192x192",
+                    type: "image/svg+xml"
+                }
+            ]
+        };
+
+        var manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+        var manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-link').setAttribute('href', manifestURL);
+
+        // Service Worker inline via Blob URL
+        var swCode = [
+            'var CACHE_NAME = "balonmano-v1";',
+            'var URLS_TO_CACHE = [self.location.href];',
+            'self.addEventListener("install", function(e) {',
+            '  e.waitUntil(caches.open(CACHE_NAME).then(function(c) { return c.addAll(URLS_TO_CACHE); }));',
+            '  self.skipWaiting();',
+            '});',
+            'self.addEventListener("activate", function(e) {',
+            '  e.waitUntil(caches.keys().then(function(names) {',
+            '    return Promise.all(names.filter(function(n) { return n !== CACHE_NAME; }).map(function(n) { return caches.delete(n); }));',
+            '  }));',
+            '  self.clients.claim();',
+            '});',
+            'self.addEventListener("fetch", function(e) {',
+            '  e.respondWith(caches.match(e.request).then(function(r) { return r || fetch(e.request); }));',
+            '});'
+        ].join('\n');
+
+        if ('serviceWorker' in navigator) {
+            var swBlob = new Blob([swCode], { type: 'application/javascript' });
+            var swURL = URL.createObjectURL(swBlob);
+            navigator.serviceWorker.register(swURL).catch(function() {});
+        }
+
+        // ====== PWA INSTALL PROMPT ======
+        var deferredPrompt = null;
+        var pwaBanner = document.getElementById('pwa-banner');
+
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            deferredPrompt = e;
+            pwaBanner.classList.add('show');
+        });
+
+        document.getElementById('pwa-install-btn').addEventListener('click', function() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function() {
+                    deferredPrompt = null;
+                    pwaBanner.classList.remove('show');
+                });
+            }
+        });
+
+        document.getElementById('pwa-close-btn').addEventListener('click', function() {
+            pwaBanner.classList.remove('show');
+        });
+    </script>
+</body>
+</html>
